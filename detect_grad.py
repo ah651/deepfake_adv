@@ -48,11 +48,6 @@ def main(args):
     
     user_home = os.environ['HOME']
 
-    args.mean = False 
-    args.fc_model = True
-    args.pretrain = True    
-    args.perm = True 
-
     if args.multi:
         args.cls_num = 5
     else:

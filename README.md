@@ -1,4 +1,4 @@
-# ILA-plus-plus
+# Deepfake-Adv
 Code for our paper [Deepfake Forensics via An Adversarial Game](https://arxiv.org/abs/2103.13567).
 
 ## Requirements
@@ -17,7 +17,7 @@ FaceForensics++ (FF++) is a recently released large scale deepfake video detecti
 
 To make the evaluation more comprehensive, we introduced two more deepfake datasets: DFD and Celeb-DF. DFD contains 3,068 deepfake videos, which were forged based on 363 real videos. Celeb-DF contains 590 real videos and 5,639 fake videos.
 
-## training
+## Training
 Training with generators:
 ```
 python detect_gen.py \
@@ -47,7 +47,7 @@ python detect_grad.py \
 
 ## Evaluation
 ```
-python eval.py --exp_name $exp_name --epoch $i --multi --model_type b7
+python eval.py --exp_name $exp_name --epoch $i --model_type b7
 ```
 
 ## Usage

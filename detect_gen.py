@@ -35,10 +35,6 @@ writer = None
 global_step = 0
 val_acc = 0
 EPS = 0.1 
-adv_lambda = 10
-# pert_lambda = 1e-3
-pert_lambda = 0
-
 new_norm = 100
 
 def main(args):
@@ -47,13 +43,6 @@ def main(args):
     torch.backends.cudnn.benchmark = True
     
     user_home = os.environ['HOME']
-
-    # if user_home == '/home/tiger':
-    #     args.con = True
-    args.mean = False 
-    args.fc_model = True
-    args.pretrain = True    
-    args.perm = True 
 
     if args.multi:
         args.cls_num = 5
@@ -223,9 +212,6 @@ def train(train_loaders, criterion, models, optimizers, epoch, log_interval, seg
     gen_real_losses = AverageMeter()
     gen_fake_losses = AverageMeter()
 
-    if args.check_blur:
-        dislosses_blur_real = AverageMeter()
-        dislosses_blur_fake = AverageMeter()
     accuracies = AverageMeter()
     if args.multi:
         accuracies1 = AverageMeter()
@@ -279,7 +265,6 @@ def train(train_loaders, criterion, models, optimizers, epoch, log_interval, seg
                     pred_real = model_dis(inputs_real_tmp, bn_idx=1)
                 else:   
                     pred_real = model_dis(inputs_real_tmp)
-                # genloss_att_real = -criterion(pred_real, targets_aug_real).mean()
                 genloss_att_real = criterion(pred_real, 1-targets_aug_real).mean()
                 inputs_real_grad = torch.autograd.grad(genloss_att_real, inputs_real_tmp)[0] 
                 inputs_real_grad_norm = torch.norm(inputs_real_grad, p=2., dim=(1,2,3), keepdim=True)
